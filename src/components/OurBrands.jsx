@@ -59,48 +59,72 @@ const OurBrands = () => {
       ref={sectionRef}
       className="bg-black text-white min-h-screen py-16 px-6 md:px-12"
     >
-      <div className="max-w-6xl mx-auto flex flex-row items-start gap-12">
+      <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-start gap-12">
         {/* Left: Logo */}
-        <div className="md:w-1/5 sticky top-1/4 flex justify-center md:justify-start">
-          <img src={logo} alt="Logo" className="w-24 md:w-32" />
+        <div className="flex justify-center md:justify-start md:w-1/5 sticky top-4 md:top-1/4">
+          <img src={logo} alt="Logo" className="w-20 md:w-32" />
         </div>
 
-        {/* Middle: Animated Text */}
-        <div className="md:w-3/5 min-h-[400px] flex items-center">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeIndex}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -30 }}
-              transition={{ duration: 0.6 }}
-            >
-              <h1 className="font-bold uppercase mb-6 text-[2.5rem] md:text-[3.5rem]">
-                {brands[activeIndex].title}
-              </h1>
-              <p className="text-lg md:text-xl mb-4">{brands[activeIndex].text1}</p>
-              {brands[activeIndex].text2 && (
-                <p className="text-lg md:text-xl">{brands[activeIndex].text2}</p>
-              )}
-            </motion.div>
-          </AnimatePresence>
-        </div>
+        {/* Middle + Right: Responsive container */}
+        <div className="flex flex-col md:flex-row md:w-4/5 gap-8">
+          {/* On mobile: Lines on top */}
+          <div className="flex md:hidden justify-center mb-6 space-x-4">
+            {brands.map((_, idx) => (
+              <motion.div
+                key={idx}
+                className="h-[4px] w-6 rounded cursor-pointer"
+                onClick={() => setActiveIndex(idx)}
+                animate={{
+                  backgroundColor: idx === activeIndex ? "#fff" : "#555",
+                  width: idx === activeIndex ? 40 : 24,
+                  scale: idx === activeIndex ? 1.2 : 1,
+                }}
+                transition={{ duration: 0.4 }}
+              />
+            ))}
+          </div>
 
-        {/* Right: Fixed Lines */}
-        <div className="hidden md:flex flex-col space-y-4 sticky top-1/4">
-          {brands.map((_, idx) => (
-            <motion.div
-              key={idx}
-              className="w-[4px] rounded cursor-pointer"
-              onClick={() => setActiveIndex(idx)}
-              animate={{
-                backgroundColor: idx === activeIndex ? "#fff" : "#555",
-                height: idx === activeIndex ? 80 : 40,
-                scale: idx === activeIndex ? 1.3 : 1,
-              }}
-              transition={{ duration: 0.4 }}
-            />
-          ))}
+          {/* Middle: Animated Text */}
+          <div className="md:w-3/4 min-h-[300px] flex items-center">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeIndex}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -30 }}
+                transition={{ duration: 0.6 }}
+              >
+                <h1 className="font-bold uppercase mb-6 text-[2rem] sm:text-[2.5rem] md:text-[3.5rem]">
+                  {brands[activeIndex].title}
+                </h1>
+                <p className="text-base sm:text-lg md:text-xl mb-4">
+                  {brands[activeIndex].text1}
+                </p>
+                {brands[activeIndex].text2 && (
+                  <p className="text-base sm:text-lg md:text-xl">
+                    {brands[activeIndex].text2}
+                  </p>
+                )}
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          {/* Right: Lines (desktop only) */}
+          <div className="hidden md:flex flex-col space-y-4 sticky top-1/4">
+            {brands.map((_, idx) => (
+              <motion.div
+                key={idx}
+                className="w-[4px] rounded cursor-pointer"
+                onClick={() => setActiveIndex(idx)}
+                animate={{
+                  backgroundColor: idx === activeIndex ? "#fff" : "#555",
+                  height: idx === activeIndex ? 80 : 40,
+                  scale: idx === activeIndex ? 1.3 : 1,
+                }}
+                transition={{ duration: 0.4 }}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>
