@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Chordifires from "../assets/40.png";
 import One11 from "../assets/37.png";
 import YumMum from "../assets/38.png";
@@ -40,24 +40,29 @@ const brands = [
 
 const OurBrands = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const sectionRef = useRef(null);
+  const [introOpacity, setIntroOpacity] = useState(1);
+  const introRef = useRef(null);
+  const mainSectionRef = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => {
-      const section = sectionRef.current;
-      if (!section) return;
+      const mainSection = mainSectionRef.current;
+      const introSection = introRef.current;
+      if (!mainSection || !introSection) return;
 
-      const rect = section.getBoundingClientRect();
-      const scrollableHeight = section.scrollHeight - window.innerHeight;
+      // Scroll logic for the main sticky section
+      const mainRect = mainSection.getBoundingClientRect();
+      const mainScrollableHeight = mainSection.scrollHeight - window.innerHeight;
+      const progress = Math.min(1, Math.max(0, -mainRect.top / mainScrollableHeight));
       
-      // Calculate a progress value from 0 to 1 as the user scrolls through the section
-      const progress = Math.min(1, Math.max(0, -rect.top / scrollableHeight));
-      
-      // Map the progress to an index of the brands array
       let newIndex = Math.floor(progress * brands.length);
-      newIndex = Math.min(newIndex, brands.length - 1); // Clamp the index
-
+      newIndex = Math.min(newIndex, brands.length - 1);
       setActiveIndex(newIndex);
+
+      // Scroll logic for the intro section fade out
+      const introRect = introSection.getBoundingClientRect();
+      const newOpacity = Math.max(0, 1 + (introRect.top / (window.innerHeight * 0.5)));
+      setIntroOpacity(newOpacity);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -67,88 +72,98 @@ const OurBrands = () => {
   }, []);
 
   return (
-    <section 
-      ref={sectionRef} 
-      className="bg-black text-white py-16 px-6 md:px-12 relative"
-      // Set a larger height for the section to create scroll space
-      style={{ height: `${brands.length * 100}vh` }} 
-    >
-      {/* Container that will stick to the top of the viewport */}
-      <div className="sticky top-0 h-screen flex flex-col justify-center">
-        {/* Our Brands title that sticks to the top of the sticky container */}
-        <div className="max-w-6xl mx-auto w-full z-20">
-          <h2 className="text-3xl md:text-4xl font-bold uppercase text-center md:text-left mb-8 md:mb-12">Our Brands</h2>
-        </div>
+    <div className="bg-black text-white relative">
+      {/* Intro section with conditional height for mobile */}
+      <motion.div
+        ref={introRef}
+        className="min-h-[70vh] md:min-h-screen py-16 px-6 md:px-12 flex flex-col items-center justify-center text-center"
+        style={{ opacity: introOpacity }}
+      >
+        <h2 className="text-4xl md:text-5xl font-bold uppercase mb-8">Our Brands</h2>
+        <p className="text-xl md:text-2xl max-w-2xl mx-auto text-gray-300 px-4 leading-relaxed">
+          With a commitment to becoming the world’s #1 creative company, we bring together talent from diverse niches and provide a 360° professional ecosystem—from learning and mentoring to collaboration and growth.
+        </p>
+      </motion.div>
 
-        {/* Main content area */}
-        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-start gap-12 w-full">
-          <div className="md:w-3/4 flex flex-col md:flex-row items-center justify-center gap-8 w-full">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeIndex}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -30 }}
-                transition={{ duration: 0.6 }}
-                className="flex flex-col md:flex-row items-center gap-8 w-full"
-              >
-                <div className="md:w-1/2 flex-shrink-0">
-                  <img
-                    src={brands[activeIndex].imageUrl}
-                    alt={brands[activeIndex].title}
-                    className="w-full h-auto rounded-lg shadow-lg object-cover"
-                  />
-                </div>
-                <div className="md:w-1/2 text-center md:text-left">
-                  <h1 className="font-bold uppercase mb-4 text-[2rem] sm:text-[2.5rem] md:text-[3rem]">
-                    {brands[activeIndex].title}
-                  </h1>
-                  <p className="text-base sm:text-lg md:text-xl mb-3 leading-relaxed">
-                    {brands[activeIndex].text1}
-                  </p>
-                  {brands[activeIndex].text2 && (
-                    <p className="text-base sm:text-lg md:text-xl leading-relaxed">
-                      {brands[activeIndex].text2}
+      {/* Main sticky section for brand content */}
+      <section
+        ref={mainSectionRef}
+        className="bg-black text-white px-6 md:px-12"
+        style={{ height: `${brands.length * 100}vh` }}
+      >
+        <div className="sticky top-0 h-screen flex items-center justify-center">
+          <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-center gap-12 w-full">
+            {/* Main content area */}
+            <div className="md:w-3/4 flex flex-col md:flex-row items-center justify-center gap-8 w-full">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeIndex}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -30 }}
+                  transition={{ duration: 0.6 }}
+                  className="flex flex-col md:flex-row items-center gap-8 w-full"
+                >
+                  <div className="md:w-1/2 flex-shrink-0">
+                    <img
+                      src={brands[activeIndex].imageUrl}
+                      alt={brands[activeIndex].title}
+                      className="w-full h-auto rounded-lg shadow-lg object-cover"
+                    />
+                  </div>
+                  <div className="md:w-1/2 text-center md:text-left">
+                    <h1 className="font-bold uppercase mb-4 text-[2rem] sm:text-[2.5rem] md:text-[3rem]">
+                      {brands[activeIndex].title}
+                    </h1>
+                    <p className="text-base sm:text-lg md:text-xl mb-3 leading-relaxed">
+                      {brands[activeIndex].text1}
                     </p>
-                  )}
-                </div>
-              </motion.div>
-            </AnimatePresence>
-          </div>
+                    {brands[activeIndex].text2 && (
+                      <p className="text-base sm:text-lg md:text-xl leading-relaxed">
+                        {brands[activeIndex].text2}
+                      </p>
+                    )}
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+            
+            {/* Right: Equal height lines (desktop only) */}
+            <div className="hidden md:flex flex-col items-center justify-center gap-8 md:w-1/4">
+              {brands.map((_, idx) => (
+                <motion.div
+                  key={idx}
+                  className="w-[6px] h-32 rounded cursor-pointer"
+                  onClick={() => setActiveIndex(idx)}
+                  animate={{
+                    backgroundColor: idx === activeIndex ? "#fff" : "#555",
+                    scale: idx === activeIndex ? 1.2 : 1,
+                  }}
+                  transition={{ duration: 0.4 }}
+                />
+              ))}
+            </div>
 
-          <div className="hidden md:flex flex-col items-center justify-center gap-8 md:w-1/4">
-            {brands.map((_, idx) => (
-              <motion.div
-                key={idx}
-                className="w-[6px] h-32 rounded cursor-pointer"
-                onClick={() => setActiveIndex(idx)}
-                animate={{
-                  backgroundColor: idx === activeIndex ? "#fff" : "#555",
-                  scale: idx === activeIndex ? 1.2 : 1,
-                }}
-                transition={{ duration: 0.4 }}
-              />
-            ))}
-          </div>
-
-          <div className="flex md:hidden justify-center mt-8 space-x-4 w-full">
-            {brands.map((_, idx) => (
-              <motion.div
-                key={idx}
-                className="h-[4px] w-6 rounded cursor-pointer"
-                onClick={() => setActiveIndex(idx)}
-                animate={{
-                  backgroundColor: idx === activeIndex ? "#fff" : "#555",
-                  width: idx === activeIndex ? 40 : 24,
-                  scale: idx === activeIndex ? 1.2 : 1,
-                }}
-                transition={{ duration: 0.4 }}
-              />
-            ))}
+            {/* Mobile: Lines on top */}
+            <div className="flex md:hidden justify-center mt-8 space-x-4 w-full">
+              {brands.map((_, idx) => (
+                <motion.div
+                  key={idx}
+                  className="h-[4px] w-6 rounded cursor-pointer"
+                  onClick={() => setActiveIndex(idx)}
+                  animate={{
+                    backgroundColor: idx === activeIndex ? "#fff" : "#555",
+                    width: idx === activeIndex ? 40 : 24,
+                    scale: idx === activeIndex ? 1.2 : 1,
+                  }}
+                  transition={{ duration: 0.4 }}
+                />
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   );
 };
 
