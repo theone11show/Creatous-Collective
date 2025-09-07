@@ -1,31 +1,40 @@
 import React, { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import logo from "../assets/logo.webp";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import Chordifires from "../assets/40.png";
+import One11 from "../assets/37.png";
+import YumMum from "../assets/38.png";
+import Petals from "../assets/39.png";
 
 const brands = [
   {
-    title: "One11Show",
-    text1:
-      "An artist launchpad dedicated to discovering, mentoring, and launching authentic musical and artistic talent.",
-    text2:
-      "Powered by The Chordifiers Studio, we unite passionate artists and skilled industry professionals committed to nurturing raw talent with vibrant music battles, live sessions, engaging podcasts, and more.",
+    title: "The Chordifiers",
+    imageUrl: Chordifires,
+    text1: `At The Chordifiers Studio, we provide a nurturing space for aspiring musicians, sound engineers, and digital creators.
+    Our environment is designed to spark imagination, support creative growth, and foster collaboration.`,
+    text2: `Whether you're a beginner exploring your passion or a professional refining your craft, our studio is your launchpad into the world of modern music production.`,
   },
   {
-    title: "Chordifiers Studio",
-    text1:
-      "A creative hub for artists and producers to innovate, collaborate, and refine their craft in a professional studio environment.",
-    text2: "",
+    title: "The One11 Show",
+    imageUrl: One11,
+    text1: `The One11 Show is an artist’s launchpad dedicated to discovering, mentoring, and launching authentic musical and artistic talent.
+    Powered by The Chordifiers Studio, we unite passionate artists and skilled industry professionals committed to nurturing raw talent.`,
+    text2: `Through vibrant music battles, live sessions, and engaging podcasts, we provide artists with the structure, mentorship, and opportunities they need to shine.
+    We celebrate and uplift the vibrant creative community around the world.`,
   },
   {
-    title: "Yum Yum Studio",
-    text1:
-      "A vibrant platform offering multimedia experiences, from music production to visual storytelling, designed to inspire creativity and collaboration.",
-    text2: "",
+    title: "Yum Mum’s Bistro",
+    imageUrl: YumMum,
+    text1: `Yum-Mum’s Bistro, nestled in Shaktigarh road no 8, PWD More, Siligun, West Bengal, is a French-inspired café designed as a haven for artists and dreamers.
+    With its cozy ambience, soulful music, and delightful flavors, it offers the perfect blend of food, art, and culture.`,
+    text2: `A place where friends gather, artists connect, and lovers create memories, Yum-Mum’s Bistro is more than just a café — it’s an experience that warms the heart and inspires the soul.`,
   },
   {
-    title: "Extra Brand",
-    text1: "Some additional brand info can go here.",
-    text2: "",
+    title: "Petals",
+    imageUrl: Petals,
+    text1: `Petals is more than just a flower delivery brand — it’s a messenger of love and emotions.
+    With beautifully curated bouquets and thoughtful gifts, Petals ensures every delivery carries a personal touch straight to your doorstep.`,
+    text2: `Whether it’s to celebrate, surprise, or simply express your feelings, we make every moment bloom with meaning.
+    With free delivery and a seamless gifting experience, Petals is here to bring joy, love, and heartfelt emotions right to you.`,
   },
 ];
 
@@ -35,40 +44,94 @@ const OurBrands = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (!sectionRef.current) return;
-      const { offsetTop, offsetHeight } = sectionRef.current;
-      const scrollY = window.scrollY + window.innerHeight / 2;
+      const section = sectionRef.current;
+      if (!section) return;
 
-      if (scrollY >= offsetTop && scrollY <= offsetTop + offsetHeight) {
-        const relY = scrollY - offsetTop;
-        const idx = Math.min(
-          brands.length - 1,
-          Math.floor((relY / offsetHeight) * brands.length)
-        );
-        setActiveIndex(idx);
-      }
+      const rect = section.getBoundingClientRect();
+      const scrollableHeight = section.scrollHeight - window.innerHeight;
+      
+      // Calculate a progress value from 0 to 1 as the user scrolls through the section
+      const progress = Math.min(1, Math.max(0, -rect.top / scrollableHeight));
+      
+      // Map the progress to an index of the brands array
+      let newIndex = Math.floor(progress * brands.length);
+      newIndex = Math.min(newIndex, brands.length - 1); // Clamp the index
+
+      setActiveIndex(newIndex);
     };
 
     window.addEventListener("scroll", handleScroll);
     handleScroll();
+
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
-    <section
-      ref={sectionRef}
-      className="bg-black text-white min-h-screen py-16 px-6 md:px-12"
+    <section 
+      ref={sectionRef} 
+      className="bg-black text-white py-16 px-6 md:px-12 relative"
+      // Set a larger height for the section to create scroll space
+      style={{ height: `${brands.length * 100}vh` }} 
     >
-      <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-start gap-12">
-        {/* Left: Logo */}
-        <div className="flex justify-center md:justify-start md:w-1/5 sticky top-4 md:top-1/4">
-          <img src={logo} alt="Logo" className="w-20 md:w-32" />
+      {/* Container that will stick to the top of the viewport */}
+      <div className="sticky top-0 h-screen flex flex-col justify-center">
+        {/* Our Brands title that sticks to the top of the sticky container */}
+        <div className="max-w-6xl mx-auto w-full z-20">
+          <h2 className="text-3xl md:text-4xl font-bold uppercase text-center md:text-left mb-8 md:mb-12">Our Brands</h2>
         </div>
 
-        {/* Middle + Right: Responsive container */}
-        <div className="flex flex-col md:flex-row md:w-4/5 gap-8">
-          {/* On mobile: Lines on top */}
-          <div className="flex md:hidden justify-center mb-6 space-x-4">
+        {/* Main content area */}
+        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-start gap-12 w-full">
+          <div className="md:w-3/4 flex flex-col md:flex-row items-center justify-center gap-8 w-full">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeIndex}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -30 }}
+                transition={{ duration: 0.6 }}
+                className="flex flex-col md:flex-row items-center gap-8 w-full"
+              >
+                <div className="md:w-1/2 flex-shrink-0">
+                  <img
+                    src={brands[activeIndex].imageUrl}
+                    alt={brands[activeIndex].title}
+                    className="w-full h-auto rounded-lg shadow-lg object-cover"
+                  />
+                </div>
+                <div className="md:w-1/2 text-center md:text-left">
+                  <h1 className="font-bold uppercase mb-4 text-[2rem] sm:text-[2.5rem] md:text-[3rem]">
+                    {brands[activeIndex].title}
+                  </h1>
+                  <p className="text-base sm:text-lg md:text-xl mb-3 leading-relaxed">
+                    {brands[activeIndex].text1}
+                  </p>
+                  {brands[activeIndex].text2 && (
+                    <p className="text-base sm:text-lg md:text-xl leading-relaxed">
+                      {brands[activeIndex].text2}
+                    </p>
+                  )}
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          <div className="hidden md:flex flex-col items-center justify-center gap-8 md:w-1/4">
+            {brands.map((_, idx) => (
+              <motion.div
+                key={idx}
+                className="w-[6px] h-32 rounded cursor-pointer"
+                onClick={() => setActiveIndex(idx)}
+                animate={{
+                  backgroundColor: idx === activeIndex ? "#fff" : "#555",
+                  scale: idx === activeIndex ? 1.2 : 1,
+                }}
+                transition={{ duration: 0.4 }}
+              />
+            ))}
+          </div>
+
+          <div className="flex md:hidden justify-center mt-8 space-x-4 w-full">
             {brands.map((_, idx) => (
               <motion.div
                 key={idx}
@@ -78,48 +141,6 @@ const OurBrands = () => {
                   backgroundColor: idx === activeIndex ? "#fff" : "#555",
                   width: idx === activeIndex ? 40 : 24,
                   scale: idx === activeIndex ? 1.2 : 1,
-                }}
-                transition={{ duration: 0.4 }}
-              />
-            ))}
-          </div>
-
-          {/* Middle: Animated Text */}
-          <div className="md:w-3/4 min-h-[300px] flex items-center">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeIndex}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -30 }}
-                transition={{ duration: 0.6 }}
-              >
-                <h1 className="font-bold uppercase mb-6 text-[2rem] sm:text-[2.5rem] md:text-[3.5rem]">
-                  {brands[activeIndex].title}
-                </h1>
-                <p className="text-base sm:text-lg md:text-xl mb-4">
-                  {brands[activeIndex].text1}
-                </p>
-                {brands[activeIndex].text2 && (
-                  <p className="text-base sm:text-lg md:text-xl">
-                    {brands[activeIndex].text2}
-                  </p>
-                )}
-              </motion.div>
-            </AnimatePresence>
-          </div>
-
-          {/* Right: Lines (desktop only) */}
-          <div className="hidden md:flex flex-col space-y-4 sticky top-1/4">
-            {brands.map((_, idx) => (
-              <motion.div
-                key={idx}
-                className="w-[4px] rounded cursor-pointer"
-                onClick={() => setActiveIndex(idx)}
-                animate={{
-                  backgroundColor: idx === activeIndex ? "#fff" : "#555",
-                  height: idx === activeIndex ? 80 : 40,
-                  scale: idx === activeIndex ? 1.3 : 1,
                 }}
                 transition={{ duration: 0.4 }}
               />
