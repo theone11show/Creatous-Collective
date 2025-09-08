@@ -4,6 +4,8 @@ import HeroSection from "../components/HeroSection";
 import AboutSection from "../components/AboutSection";
 import OurBrands from "../components/OurBrands";
 import OurMission from "../components/OurMission";
+import OurVision from "../components/OurVision";
+
 
 const Home = () => {
 	return (
@@ -13,9 +15,11 @@ const Home = () => {
 		<AboutSection/>
 		<OurBrands/>
 		<OurMission/>
+		<OurVision/>
 		</div>
 	)
 }
 
 
 export default Home
+
