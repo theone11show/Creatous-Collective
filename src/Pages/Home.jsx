@@ -5,8 +5,6 @@ import AboutSection from "../components/AboutSection";
 import OurBrands from "../components/OurBrands";
 import OurMission from "../components/OurMission";
 import OurVision from "../components/OurVision";
-
-
 const Home = () => {
 	return (
 		<div>
@@ -20,6 +18,4 @@ const Home = () => {
 	)
 }
 
-
 export default Home
-
