@@ -1,5 +1,5 @@
 import React from "react";
-import LiquidChrome from "../Animations/OurVisionAnimation";
+import LiquidChrome from "../Animations/OurvisionAnimation";
 import TextType from "../Animations/TextAnimation";
 
 const OurVision = () => {
@@ -43,3 +43,4 @@ const OurVision = () => {
 };
 
 export default OurVision;
+
