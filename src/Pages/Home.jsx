@@ -8,7 +8,7 @@ import OurGoals from "../components/OurGoals";
 import OurVision from "../components/OurVision"
 const Home = () => {
 	return (
-		<div className="overflow-x-hidden>
+		<div className="overflow-x-hidden">
 		<Header/>
 		<HeroSection/>
 		<AboutSection/>
@@ -22,4 +22,5 @@ const Home = () => {
 }
 
 export default Home
+
 
