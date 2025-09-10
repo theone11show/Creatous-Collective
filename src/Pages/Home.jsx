@@ -4,16 +4,19 @@ import HeroSection from "../components/HeroSection";
 import AboutSection from "../components/AboutSection";
 import OurBrands from "../components/OurBrands";
 import OurMission from "../components/OurMission";
-import OurVision from "../components/OurVision";
+import OurGoals from "../components/OurGoals";
+import OurVision from "../components/OurVision"
 const Home = () => {
 	return (
 		<div>
 		<Header/>
 		<HeroSection/>
 		<AboutSection/>
-		<OurBrands/>
+		<OurGoals/>
 		<OurMission/>
 		<OurVision/>
+		<OurBrands/>
+		
 		</div>
 	)
 }
