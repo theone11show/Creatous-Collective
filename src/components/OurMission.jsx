@@ -11,13 +11,11 @@ const OurMission = () => {
       <div className="container mx-auto flex justify-start relative h-auto pt-20 ">
       <div
   className="
-    shadow-lg 
-    bg-cover bg-center 
-    w-full
-    px-14 py-52        /* mobile (sm) */
-    md:px-[100px] md:pt-[60px] md:pb-[100px]  /* medium screens */
-    lg:px-[150px] lg:pt-[80px] lg:pb-[120px]                 /* large screens */
-    xl:px-[200px] xl:pt-[100px] xl:pb-[140px]                /* extra large */
+    shadow-lg bg-cover bg-center w-full
+    px-14 py-52
+    md:px-[100px] md:pt-[60px] md:pb-[100px]
+    lg:px-[150px] lg:pt-[80px] lg:pb-[120px]
+    xl:px-[200px] xl:pt-[100px] xl:pb-[140px]
   "
   style={{ backgroundImage: `url(${Background})` }}
 >
@@ -51,7 +49,7 @@ const OurMission = () => {
         <img
           src={Mission2}
           alt="Center"
-          className="w-72 h-auto object-cover rounded-xl shadow-2xl absolute  -translate-x-1/2 top-20 z-20"
+          className="w-72 h-auto object-cover rounded-xl shadow-2xl absolute sm:ml-52 -translate-x-1/2 top-32 z-20"
         />
 
         {/* Right Image */}
