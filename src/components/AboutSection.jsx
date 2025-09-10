@@ -8,10 +8,10 @@ const AboutSection = () => {
 
         {/* Left: Text */}
         <div className="flex flex-col justify-center text-center md:text-left space-y-4 md:w-1/2 px-6 md:px-0 py-8">
-          <h1 className="font-abril text-[40px] sm:text-[48px] md:text-[55px] text-black mb-4 uppercase">
+          <h1 className="font-['Abril_Fatface'] text-[40px] sm:text-[48px] md:text-[55px] text-black mb-4 uppercase">
             About us
           </h1>
-          <p className="font-merriweather text-[15px] sm:text-[16px] md:text-[18px] text-black leading-relaxed">
+          <p className="font-['MerriWeather'] text-[15px] sm:text-[16px] md:text-[18px] text-black leading-relaxed">
             At Creatous Collective, we believe creativity has the power 
             to transform lives. Our mission is to unite creators from across
             the globe under one platform, bringing hidden talents into the 
@@ -41,3 +41,4 @@ const AboutSection = () => {
 };
 
 export default AboutSection;
+
