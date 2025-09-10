@@ -5,7 +5,8 @@ import AboutSection from "../components/AboutSection";
 import OurBrands from "../components/OurBrands"; 
 import OurMission from "../components/OurMission"; 
 import OurGoals from "../components/OurGoals";
- import OurVision from "../components/OurVision"
+ import OurVision from "../components/OurVision";
+import OurServices from "../components/OurServices";
 
 const Home = () => {
   return (
@@ -17,7 +18,9 @@ const Home = () => {
       <OurMission />
       <OurVision />
       <OurBrands />
+     <OurServices/>
     </div>
   );
 };
 export default Home;
+
