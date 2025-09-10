@@ -2,20 +2,35 @@ import React from "react";
 import Vision1 from "../assets/1.jpg";
 import Vision2 from "../assets/2.jpg";
 import Vision3 from "../assets/3.jpg";
+import Background from "../assets/background.webp"
 
 const OurVision = () => {
   return (
-    <section className="bg-black w-full pb-16">
+    <section className="bg-black w-full ">
       {/* Vision Content */}
       <div className="container mx-auto flex justify-end relative h-auto ">
-        <div className="bg-gray-200 rounded-2xl p-8 max-w-md md:sm-w-4xl lg:max-w-4xl shadow-lg">
-        <h1 className="text-4xl md:text-5xl  uppercase mb-4 text-black font-montserrat text-center">
-                  Our Vision
-                </h1>
-          <p className="text-lg md:text-xl text-black leading-relaxed font-montserrat text-center">
-                   Our vision is to establish Creatous Collective as the world’s leading creative company, uniting diverse talents under one inclusive platform. We aspire to create a 360° professional ecosystem that nurtures creativity through learning, mentoring, and collaboration. By empowering individuals and creative businesses alike, we aim to transform passion into lasting success.
-                </p>
-        </div>
+        <div
+  className="
+    shadow-lg 
+    bg-cover bg-center 
+    w-full
+    px-14 py-52        /* mobile (sm) */
+    md:px-[100px] md:pt-[60px] md:pb-[100px]  /* medium screens */
+    lg:px-[150px] lg:pt-[80px] lg:pb-[120px]                 /* large screens */
+    xl:px-[200px] xl:pt-[100px] xl:pb-[140px]                /* extra large */
+  "
+  style={{ backgroundImage: `url(${Background})` }}
+>
+  <h1 className="mb-4 uppercase font-['Abril_Fatface'] 
+       text-[28px] sm:text-[34px] md:text-[56px] lg:text-[60px] xl:text-[64px] text-end">
+    Our Vision
+  </h1>
+
+  <p className="mb-4 font-['MerriWeather'] 
+       text-[14px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[21px] pr-6 md:pr-20">
+    Our vision is to establish Creatous Collective as the world’s leading creative company, uniting diverse talents under one inclusive platform. We aspire to create a 360° professional ecosystem that nurtures creativity through learning, mentoring, and collaboration. By empowering individuals and creative businesses alike, we aim to transform passion into lasting success.
+  </p>
+</div>
       </div>
 
       {/* Three Images Section */}
