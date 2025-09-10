@@ -2,7 +2,7 @@ import React from "react";
 import LiquidChrome from "../Animations/OurvisionAnimation";
 import TextType from "../Animations/TextAnimation";
 
-const OurVision = () => {
+const OurGoals = () => {
   return (
     <div className="relative h-screen overflow-hidden">
       {/* Background Liquid Chrome Shader */}
@@ -42,5 +42,6 @@ const OurVision = () => {
   );
 };
 
-export default OurVision;
+export default OurGoals;
+
 
