@@ -10,7 +10,7 @@ import OurServices from "../components/OurServices";
 
 const Home = () => {
   return (
-    <div className="overflow-x-hidden">
+    <div>
       <Header />
       <HeroSection />
       <AboutSection />
@@ -23,4 +23,5 @@ const Home = () => {
   );
 };
 export default Home;
+
 
