@@ -22,7 +22,7 @@ const OurVision = () => {
   style={{ backgroundImage: `url(${Background})` }}
 >
   <h1 className="mb-4 uppercase font-['Abril_Fatface'] 
-       text-[28px] sm:text-[34px] md:text-[56px] lg:text-[60px] xl:text-[64px] text-end">
+       text-[28px] sm:text-[34px] md:text-[56px] lg:text-[60px] xl:text-[64px] text-right">
     Our Vision
   </h1>
 
@@ -61,3 +61,4 @@ const OurVision = () => {
 };
 
 export default OurVision;
+
