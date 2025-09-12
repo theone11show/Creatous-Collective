@@ -1,7 +1,7 @@
 import React from 'react';
-import Vision1 from "../assets/1.jpg";
-import Vision2 from "../assets/2.jpg";
-import Vision3 from "../assets/3.jpg";
+import Vision1 from "../assets/12.jpg";
+import Vision2 from "../assets/13.jpg";
+import Vision3 from "../assets/14.jpg";
 
 const OurVision = () => {
   return (
@@ -55,3 +55,4 @@ const OurVision = () => {
 };
 
 export default OurVision;
+
