@@ -1,5 +1,6 @@
 import React from "react";
-import { FaFacebookF, FaInstagram, FaXTwitter } from "react-icons/fa";
+import { FaFacebookF, FaInstagram } from "react-icons/fa";
+import { RiTwitterXFill } from "react-icons/ri";
 
 const Footer = () => {
   return (
@@ -50,7 +51,7 @@ const Footer = () => {
               rel="noopener noreferrer"
               className="hover:text-red-500 transition duration-300"
             >
-              <FaXTwitter size={28} />
+              <RiTwitterXFill size={28} />
             </a>
             <a
               href="https://www.instagram.com/"
@@ -104,6 +105,7 @@ const Footer = () => {
 
 
 export default Footer;
+
 
 
 
