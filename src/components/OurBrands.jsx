@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Chordifires from "../assets/institute.png";
+import Chordifires from "../assets/studio.png";
 import One11 from "../assets/theone11show.png";
 import YumMum from "../assets/yummum.png";
 import Petals from "../assets/petals.png";
@@ -166,5 +166,6 @@ const OurBrands = () => {
     </div>
   );
 };
+
 
 export default OurBrands;
