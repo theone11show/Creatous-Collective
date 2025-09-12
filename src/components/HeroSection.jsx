@@ -1,9 +1,24 @@
+import React from "react";
+import Header from "../components/Header";
+import HeroSection from "../components/HeroSection";
+import AboutSection from "../components/AboutSection";
+import OurBrands from "../components/OurBrands";
+import OurMission from "../components/OurMission";
+import OurGoals from "../components/OurGoals";
+import OurVision from "../components/OurVision";
+import OurServices from "../components/OurServices";
+import Footer from "../components/Footer";
+
+// ✅ Import logo from assets
+import logo from "../assets/logo.png";
+
 const Home = () => {
   return (
     <div id="Home">
-      <Header />
+      {/* Pass logo to Header if needed */}
+      <Header logo={logo} />
 
-      {/* Add padding-top to push content below fixed header */}
+      {/* Push content below fixed header */}
       <div className="pt-[90px]">
         <HeroSection />
         <AboutSection />
@@ -24,3 +39,5 @@ const Home = () => {
     </div>
   );
 };
+
+export default Home;
