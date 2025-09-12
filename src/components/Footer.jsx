@@ -1,5 +1,5 @@
 import React from "react";
-import { FaFacebookF, FaInstagram } from "react-icons/fa";
+import { SlSocialInstagram, SlSocialFacebook } from "react-icons/sl";
 import { RiTwitterXFill } from "react-icons/ri";
 
 const Footer = () => {
@@ -43,7 +43,7 @@ const Footer = () => {
               rel="noopener noreferrer"
               className="hover:text-red-500 transition duration-300"
             >
-              <FaFacebookF size={28} />
+              <SlSocialFacebook size={28} />
             </a>
             <a
               href="https://x.com/"
@@ -59,7 +59,7 @@ const Footer = () => {
               rel="noopener noreferrer"
               className="hover:text-red-500 transition duration-300"
             >
-              <FaInstagram size={28} />
+              <SlSocialInstagram size={28} />
             </a>
           </div>
 
@@ -105,6 +105,7 @@ const Footer = () => {
 
 
 export default Footer;
+
 
 
 
