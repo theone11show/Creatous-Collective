@@ -1,73 +1,55 @@
-import React from "react";
-import Mission1 from "../assets/1.jpg";
-import Mission2 from "../assets/2.jpg";
-import Mission3 from "../assets/3.jpg";
-import Background from "../assets/background.webp";
+import React from 'react';
+import Mission1 from "../assets/1.jpg"
+import Mission2 from "../assets/2.jpg"
+import Mission3 from "../assets/3.jpg"
 
 const OurMission = () => {
   return (
-    <section className="bg-black w-full pb-16">
-      {/* Vision Content */}
-      <div className=" mx-auto ">
+    <div className="bg-black min-h-screen flex flex-col items-start justify-center relative overflow-hidden">
+      {/* Text Box */}
       <div
-    className="
-      shadow-lg bg-conver bg-repeat bg-center w-full rounded-xl overflow-hidden
-      py-52 px-6   /* increased top/bottom padding for small screens */
-      sm:py-24 sm:px-20
-      md:py-28 md:px-28
-      lg:py-32 lg:px-32
-      xl:py-36 xl:px-36
-    "
-    style={{ backgroundImage: `url(${Background})` }}
-  >
-    <h1
-      className="mb-6 uppercase font-['Abril_Fatface']
-       text-[26px] sm:text-[34px] md:text-[50px] lg:text-[56px] xl:text-[64px] leading-tight"
-    >
-      Our Mission
-    </h1>
+        className="rounded-r-[50px] p-8 md:p-12 w-full sm:w-11/12 md:w-3/4 lg:w-3/4 xl:w-2/3 text-left z-10 mt-24"
+        style={{
+          background: "linear-gradient(to bottom, #d2d2d2, #a9a9a9, #a9a9a9)",
+        }}
+      >
+        <h2 className="text-[36px] md:text-[48px] lg:text-[56px] font-['Abril_Fatface'] tracking-tight mb-4 text-black uppercase">
+          Our Mission
+        </h2>
 
-    <p
-      className="font-['MerriWeather']
-       text-[14px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[21px] 
-       leading-relaxed max-w-3xl"
-    >
-      Our core mission is to remove the word "uncertainty" from every creative career,
-      with a particular focus on the fields of Music, Art, and Entertainment. We aim to
-      achieve this by actively spreading awareness that successful and fulfilling
-      livelihoods are not exclusive to traditional professions like doctors and engineers,
-      but can also be robustly built and sustained through careers in the creative fields.
-    </p>
-  </div>
-
+        <p className="text-sm md:text-lg lg:text-xl leading-relaxed text-black font-['MerriWeather']">
+          Our core mission is to remove the word "uncertainty" from every creative career, with a
+          particular focus on the fields of Music, Art, and Entertainment. We aim to achieve this by
+          actively spreading awareness that successful and fulfilling livelihoods are not exclusive
+          to traditional professions like doctors and engineers, but can also be robustly built and
+          sustained through careers in the creative fields.
+        </p>
       </div>
 
-      {/* Three Images Section */}
-      <div className="container mx-auto mt-16 px-6 md:px-12 lg:px-20">
-        <div className="flex flex-col items-center gap-6 md:flex-row md:justify-center md:gap-10 lg:gap-14">
-          {/* Left Image */}
+      {/* Overlapping Images aligned right */}
+      <div className="relative w-full flex justify-end mt-12 pr-6">
+        <div className="relative w-[320px] sm:w-[360px] md:w-[400px] lg:w-[460px] xl:w-[520px] h-[200px] sm:h-[220px] md:h-[240px] lg:h-[260px] xl:h-[280px]">
+          {/* Mission 1 - Center (front) */}
           <img
             src={Mission1}
-            alt="Left"
-            className="w-48 sm:w-56 md:w-64 lg:w-72 h-auto object-cover rounded-xl shadow-lg transform md:rotate-[-8deg]"
+            alt="Creative Field 1"
+            className="w-40 h-28 sm:w-48 sm:h-32 md:w-56 md:h-36 lg:w-60 lg:h-40 xl:w-64 xl:h-44 object-cover rounded-lg shadow-lg relative left-20 z-20"
           />
-
-          {/* Center Image */}
+          {/* Mission 2 - Right overlap */}
           <img
             src={Mission2}
-            alt="Center"
-            className="w-52 sm:w-64 md:w-72 lg:w-80 h-auto object-cover rounded-xl shadow-2xl z-20"
+            alt="Creative Field 2"
+            className="w-40 h-28 sm:w-48 sm:h-32 md:w-56 md:h-36 lg:w-60 lg:h-40 xl:w-64 xl:h-44 object-cover rounded-lg shadow-lg absolute top-0 right-[-5px] transform rotate-3 z-10"
           />
-
-          {/* Right Image */}
+          {/* Mission 3 - Left overlap */}
           <img
             src={Mission3}
-            alt="Right"
-            className="w-48 sm:w-56 md:w-64 lg:w-72 h-auto object-cover rounded-xl shadow-lg transform md:rotate-[8deg]"
+            alt="Creative Field 3"
+            className="w-40 h-28 sm:w-48 sm:h-32 md:w-56 md:h-36 lg:w-60 lg:h-40 xl:w-64 xl:h-44 object-cover rounded-lg shadow-lg absolute top-0 left-[-40px] transform -rotate-3 z-10"
           />
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 
