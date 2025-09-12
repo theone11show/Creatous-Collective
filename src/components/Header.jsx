@@ -1,59 +1,56 @@
-import React, { useState } from "react";
+import React from "react";
 import logo from "../assets/Headerlogo.png"; 
 
-const Header = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
+const HeroSection = () => {
   return (
-    <header className="bg-[#e6e6e6] w-full p-6">
-    <div className="max-w-6xl mx-auto flex items-center justify-between px-2 md:px-4">
+    <section className="bg-black text-white flex items-center justify-center h-screen px-6 md:px-12 pt-20">
+      <div className="w-full max-w-6xl flex flex-col md:flex-row items-center md:items-center justify-between gap-8">
         
-        {/* Left: Logo + Text */}
-        <div className="flex items-center gap-1 md:gap-1"> 
-    <img
-      src={logo}
-      alt="Creatous Collective Logo"
-      className="w-10 h-auto md:w-12"
-    />
-    <span className="font-glacial uppercase text-[14px] sm:text-[15px] md:text-[16px] lg:text-[18px] xl:text-[20px]">
-      Creatous Collective
-    </span>
-  </div>
+        {/* Logo */}
+        <div className="flex-shrink-0">
+          <img
+            src={logo}
+            alt="Creative Collective Media Logo"
+            className="w-52 sm:w-72 md:w-96 lg:w-96 h-auto mx-auto md:mx-0"
+          />
+        </div>
 
-        {/* Right: Navigation + Toggle */}
-        <div className="flex items-center gap-4 md:gap-6">
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex gap-6">
-            <a href="#" className="font-glacial text-[14px] sm:text-[15px] md:text-[16px] lg:text-[18px] xl:text-[20px] uppercase hover:text-gray-700">
-              Home
-            </a>
-            <a href="#" className="font-glacial text-[14px] sm:text-[15px] md:text-[16px] lg:text-[18px] xl:text-[20px] uppercase hover:text-gray-700">
-              Our Brands
-            </a>
-          </nav>
+        {/* Text + Button (RIGHT aligned container) */}
+        <div className="flex flex-col items-end text-right w-full md:w-1/2 space-y-6">
+          
+          {/* Group Heading + Subtext with smaller gap */}
+          <div className="flex flex-col w-full space-y-2">
+            {/* Main Heading */}
+            <h1
+              className="font-[glacial] leading-tight 
+                         text-[22px] sm:text-[26px] md:text-[30px] lg:text-[36px] xl:text-[42px] whitespace-nowrap 
+                         uppercase text-[#fff5f6] self-start"
+            >
+              Creatous Collective Media
+            </h1>
 
-          {/* Mobile Toggle Button */}
-          <button
-            className="md:hidden flex flex-col justify-center items-center p-2"
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            <span className={`block w-5 h-[2px] bg-black mb-1 transition-transform ${isOpen ? "rotate-45 translate-y-[6px]" : ""}`}></span>
-            <span className={`block w-5 h-[2px] bg-black mb-1 transition-opacity ${isOpen ? "opacity-0" : "opacity-100"}`}></span>
-            <span className={`block w-5 h-[2px] bg-black transition-transform ${isOpen ? "-rotate-45 -translate-y-[6px]" : ""}`}></span>
-          </button>
+            {/* Subtext */}
+            <p
+              className="font-[glacial_indiffern] text-[#e6e6e6] uppercase 
+                         text-center w-full
+                         text-[13px] sm:text-[14px] md:text-[15px] lg:text-[18px] xl:text-[20px]"
+            >
+              Fulfilling Unfulfilled Dreams
+            </p>
+          </div>
+
+          {/* Button (left-aligned under heading) */}
+          <div className="self-center">
+            <a href="#our-services">
+  <button className="bg-white text-black px-6 py-3 rounded-full font-semibold hover:bg-gray-200 transition-transform transform hover:scale-105">
+    Get Started
+  </button>
+</a>
+          </div>
         </div>
       </div>
-
-      {/* Mobile Menu */}
-      {isOpen && (
-        <div className="md:hidden bg-[#e6e6e6] w-full px-4 flex flex-col items-start gap-2 py-2">
-          <a href="#" className="font-glacial uppercase text-[16px] hover:text-gray-700">Home</a>
-          <a href="#" className="font-glacial uppercase text-[16px] hover:text-gray-700">Our Brands</a>
-        </div>
-      )}
-    </header>
+    </section>
   );
 };
 
-export default Header;
-
+export default HeroSection;
