@@ -18,8 +18,8 @@ const OurServices = ({ items, className = '', radius = 300, damping = 0.45, fade
       title: 'Chordifires Studio',
       subtitle: 'Music Institute',
       handle: '@thechordifiers',
-      borderColor: '#4F46E5',
-      gradient: 'linear-gradient(195deg, #e5e5e5, #000)',
+      borderColor: '#fff',
+      gradient: 'linear-gradient(180deg, #000, #000)',
       url: 'https://thechordifiers.studio/'
     },
     {
@@ -27,8 +27,8 @@ const OurServices = ({ items, className = '', radius = 300, damping = 0.45, fade
       title: 'The One11 Show',
       subtitle: 'Artists Launchpad',
       handle: '@theone11.show',
-      borderColor: '#10B981',
-      gradient: 'linear-gradient(135deg,#e5e5e5,#000)',
+      borderColor: '#fff',
+      gradient: 'linear-gradient(180deg, #000, #000)',
       url: 'https://theone11.show'
     },
     {
@@ -36,16 +36,16 @@ const OurServices = ({ items, className = '', radius = 300, damping = 0.45, fade
       title: "Yum Mum's Bistro",
       subtitle: 'Restaurant',
       handle: "Yum Mum's Bistro",
-      borderColor: '#F59E0B',
-      gradient: 'linear-gradient(195deg, #f5f5f5, #000)'
+      borderColor: '#fff',
+      gradient: 'linear-gradient(180deg, #000, #000)'
     },
     {
       image: Petals,
       title: 'Petals',
       subtitle: 'Flowers',
       handle: '@Petals',
-      borderColor: '#EF4444',
-      gradient: 'linear-gradient(195deg, #f5f5f5, #000)'
+      borderColor: '#fff',
+      gradient: 'linear-gradient(180deg, #000, #000)'
     },
   ];
 
@@ -62,43 +62,8 @@ const OurServices = ({ items, className = '', radius = 300, damping = 0.45, fade
     setY.current(pos.current.y);
   }, []);
 
-  const moveTo = (x, y) => {
-    gsap.to(pos.current, {
-      x,
-      y,
-      duration: damping,
-      ease,
-      onUpdate: () => {
-        setX.current?.(pos.current.x);
-        setY.current?.(pos.current.y);
-      },
-      overwrite: true
-    });
-  };
-
-  const handleMove = e => {
-    const r = rootRef.current.getBoundingClientRect();
-    moveTo(e.clientX - r.left, e.clientY - r.top);
-    gsap.to(fadeRef.current, { opacity: 0, duration: 0.25, overwrite: true });
-  };
-
-  const handleLeave = () => {
-    gsap.to(fadeRef.current, {
-      opacity: 1,
-      duration: fadeOut,
-      overwrite: true
-    });
-  };
-
   const handleCardClick = url => {
     if (url) window.open(url, '_blank', 'noopener,noreferrer');
-  };
-
-  const handleCardMove = e => {
-    const c = e.currentTarget;
-    const rect = c.getBoundingClientRect();
-    c.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
-    c.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
   };
 
   return (
@@ -111,8 +76,6 @@ const OurServices = ({ items, className = '', radius = 300, damping = 0.45, fade
       {/* Cards Container */}
       <div
         ref={rootRef}
-        onPointerMove={handleMove}
-        onPointerLeave={handleLeave}
         className={`relative w-full flex flex-wrap justify-center items-start gap-6 px-4 ${className}`}
         style={{
           '--r': `${radius}px`,
@@ -123,23 +86,14 @@ const OurServices = ({ items, className = '', radius = 300, damping = 0.45, fade
         {data.map((c, i) => (
           <article
             key={i}
-            onMouseMove={handleCardMove}
             onClick={() => handleCardClick(c.url)}
-            className="group relative flex flex-col justify-between w-[280px] md:w-[300px] h-[420px] rounded-[20px] overflow-hidden border-2 border-transparent cursor-pointer transition-transform duration-300 hover:scale-[1.03]"
+            className="group relative flex flex-col justify-between w-[280px] md:w-[300px] h-[420px] rounded-[20px] overflow-hidden cursor-pointer transition-transform duration-300 hover:scale-[1.03]"
             style={{
-              '--card-border': c.borderColor || 'transparent',
-              background: c.gradient,
-              '--spotlight-color': 'rgba(0,0,0,0.4)'
+              border: `2px solid ${c.borderColor}`,
+              boxShadow: "0 0 20px rgba(255,255,255,0.6)",
+              background: c.gradient
             }}
           >
-            {/* Hover Black Gradient */}
-            <div
-              className="absolute inset-0 pointer-events-none transition-opacity duration-500 z-20 opacity-0 group-hover:opacity-100"
-              style={{
-                background:
-                  'radial-gradient(circle at var(--mouse-x) var(--mouse-y), var(--spotlight-color), transparent 70%)'
-              }}
-            />
             {/* Image */}
             <div className="relative z-10 flex-1 p-[10px] flex items-center justify-center">
               <img
@@ -166,26 +120,6 @@ const OurServices = ({ items, className = '', radius = 300, damping = 0.45, fade
             </footer>
           </article>
         ))}
-
-        {/* Background effects */}
-        <div
-          className="absolute inset-0 pointer-events-none z-30"
-          style={{
-            backdropFilter: 'grayscale(0.3) brightness(0.85)',
-            WebkitBackdropFilter: 'grayscale(0.3) brightness(0.85)',
-            background: 'rgba(0,0,0,0.02)',
-          }}
-        />
-        <div
-          ref={fadeRef}
-          className="absolute inset-0 pointer-events-none transition-opacity duration-[250ms] z-40"
-          style={{
-            backdropFilter: 'grayscale(0.3) brightness(0.85)',
-            WebkitBackdropFilter: 'grayscale(0.3) brightness(0.85)',
-            background: 'rgba(0,0,0,0.02)',
-            opacity: 1
-          }}
-        />
       </div>
     </section>
   );
