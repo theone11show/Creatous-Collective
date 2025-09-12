@@ -7,6 +7,7 @@ import OurMission from "../components/OurMission";
 import OurGoals from "../components/OurGoals";
  import OurVision from "../components/OurVision";
 import OurServices from "../components/OurServices";
+import Footer from "../components/Footer
 
 const Home = () => {
   return (
@@ -19,9 +20,11 @@ const Home = () => {
       <OurVision />
       <OurBrands />
      <OurServices/>
+     <Footer/>
     </div>
   );
 };
 export default Home;
+
 
 
