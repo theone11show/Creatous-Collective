@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../assets/logo.png"; 
+import logo from "../assets/Herosectionlogo.png"; 
 
 const HeroSection = () => {
   return (
@@ -52,3 +52,4 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
+
