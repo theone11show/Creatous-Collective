@@ -22,48 +22,50 @@ const OurServices = ({ items, className = "", radius = 300 }) => {
   const setY = useRef(null);
   const pos = useRef({ x: 0, y: 0 });
 
+  const chordifiresURL = "https://thechordifiers.studio/";
+
   const demo = [
     {
       image: Chordifires,
       title: "Chordifires Studio",
       subtitle: "Music Institute",
-      handle: "@thechordifiers",
       borderColor: "#fff",
       gradient: "linear-gradient(180deg, #000, #000)",
-      url: "https://thechordifiers.studio/",
+      url: chordifiresURL,
+      moveUp: true, // move text up
     },
     {
       image: theone11,
       title: "The One11 Show",
       subtitle: "Artists Launchpad",
-      handle: "@theone11.show",
       borderColor: "#fff",
       gradient: "linear-gradient(180deg, #000, #000)",
       url: "https://theone11.show",
+      moveUp: true, // move text up
     },
     {
       image: YumMum,
       title: "Yum Mum's Bistro",
       subtitle: "Restaurant",
-      handle: "Yum Mum's Bistro",
       borderColor: "#fff",
       gradient: "linear-gradient(180deg, #000, #000)",
+      url: chordifiresURL, // redirect to Chordifires
     },
     {
       image: Petals,
       title: "Petals",
       subtitle: "Flowers",
-      handle: "@Petals",
       borderColor: "#fff",
       gradient: "linear-gradient(180deg, #000, #000)",
+      url: chordifiresURL, // redirect to Chordifires
     },
     {
       image: studio,
       title: "Chorfires Studio",
       subtitle: "Music Academy",
-      handle: "@chorfires",
       borderColor: "#fff",
       gradient: "linear-gradient(180deg, #000, #000)",
+      url: chordifiresURL, // redirect to Chordifires
     },
   ];
 
@@ -91,7 +93,10 @@ const OurServices = ({ items, className = "", radius = 300 }) => {
         Our Services
       </h2>
 
-      <div ref={rootRef} className={`relative w-full flex flex-col gap-12 px-4 ${className}`}>
+      <div
+        ref={rootRef}
+        className={`relative w-full flex flex-col gap-12 px-4 ${className}`}
+      >
         {/* First Row (3 Cards) */}
         <div className="flex flex-wrap justify-center gap-6 md:gap-10">
           {data.slice(0, 3).map((c, i) => (
@@ -114,17 +119,17 @@ const OurServices = ({ items, className = "", radius = 300 }) => {
               <div className="relative z-10 flex-1 p-3 flex items-center justify-center bg-black">
                 <OptimizedImage src={c.image} alt={c.title} />
               </div>
-              <footer className="relative z-10 p-3 text-white font-sans grid grid-cols-[1fr_auto] gap-x-3 gap-y-1">
-                <h3 className="m-0 text-[1rem] md:text-[1.1rem] font-['MerriWeather']">{c.title}</h3>
-                {c.handle && (
-                  <span className="text-[0.9rem] md:text-[1rem] opacity-80 text-right font-['Abril_Fatface']">
-                    {c.handle}
-                  </span>
-                )}
-                <p className="m-0 text-[0.85rem] opacity-85 font-['MerriWeather']">{c.subtitle}</p>
-                {c.location && (
-                  <span className="text-[0.8rem] opacity-85 text-right">{c.location}</span>
-                )}
+              <footer
+                className={`relative z-10 p-3 text-white font-sans grid grid-cols-1 gap-y-1 ${
+                  c.moveUp ? "-mt-3" : ""
+                }`}
+              >
+                <h3 className="m-0 text-[1rem] md:text-[1.1rem] font-['MerriWeather']">
+                  {c.title}
+                </h3>
+                <p className="m-0 text-[0.85rem] opacity-85 font-['MerriWeather']">
+                  {c.subtitle}
+                </p>
               </footer>
             </article>
           ))}
@@ -152,17 +157,17 @@ const OurServices = ({ items, className = "", radius = 300 }) => {
               <div className="relative z-10 flex-1 p-3 flex items-center justify-center bg-black">
                 <OptimizedImage src={c.image} alt={c.title} />
               </div>
-              <footer className="relative z-10 p-3 text-white font-sans grid grid-cols-[1fr_auto] gap-x-3 gap-y-1">
-                <h3 className="m-0 text-[1rem] md:text-[1.1rem] font-['MerriWeather']">{c.title}</h3>
-                {c.handle && (
-                  <span className="text-[0.9rem] md:text-[1rem] opacity-80 text-right font-['Abril_Fatface']">
-                    {c.handle}
-                  </span>
-                )}
-                <p className="m-0 text-[0.85rem] opacity-85 font-['MerriWeather']">{c.subtitle}</p>
-                {c.location && (
-                  <span className="text-[0.8rem] opacity-85 text-right">{c.location}</span>
-                )}
+              <footer
+                className={`relative z-10 p-3 text-white font-sans grid grid-cols-1 gap-y-1 ${
+                  c.moveUp ? "-mt-3" : ""
+                }`}
+              >
+                <h3 className="m-0 text-[1rem] md:text-[1.1rem] font-['MerriWeather']">
+                  {c.title}
+                </h3>
+                <p className="m-0 text-[0.85rem] opacity-85 font-['MerriWeather']">
+                  {c.subtitle}
+                </p>
               </footer>
             </article>
           ))}
@@ -173,4 +178,3 @@ const OurServices = ({ items, className = "", radius = 300 }) => {
 };
 
 export default OurServices;
-
