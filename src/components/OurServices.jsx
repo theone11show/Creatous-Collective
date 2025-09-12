@@ -1,6 +1,7 @@
 import { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import Chordifires from "../assets/institute.png";
+import Studio from "../assets/studio.png";
 import studio from "../assets/studio.png";
 import theone11 from "../assets/theone11show.png";
 import YumMum from "../assets/yummum.png";
@@ -57,7 +58,7 @@ const OurServices = ({ items, className = "", radius = 300 }) => {
       gradient: "linear-gradient(180deg, #000, #000)",
     },
     {
-      image: Chordifires,
+      image: studio,
       title: "Chorfires Studio",
       subtitle: "Music Academy",
       handle: "@chorfires",
@@ -172,3 +173,4 @@ const OurServices = ({ items, className = "", radius = 300 }) => {
 };
 
 export default OurServices;
+
