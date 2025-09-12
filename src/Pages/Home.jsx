@@ -9,6 +9,7 @@ import OurGoals from "../components/OurGoals";
 import OurServices from "../components/OurServices";
 import Footer from "../components/Footer";
 
+
 const Home = () => {
   return (
     <div>
@@ -25,6 +26,7 @@ const Home = () => {
   );
 };
 export default Home;
+
 
 
 
