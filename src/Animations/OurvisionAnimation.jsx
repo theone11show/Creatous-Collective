@@ -2,12 +2,10 @@ import { useRef, useEffect } from "react";
 import { Renderer, Program, Mesh, Triangle } from "ogl";
 
 export const LiquidChrome = ({
-  baseColor = [0.2, 0.2, 0.2],
-  speed = 0.2,
+  speed = 0.02,      
   amplitude = 0.3,
   frequencyX = 3,
   frequencyY = 2,
-  interactive = true,
   ...props
 }) => {
   const containerRef = useRef(null);
@@ -18,7 +16,7 @@ export const LiquidChrome = ({
     const container = containerRef.current;
     const renderer = new Renderer({ antialias: true });
     const gl = renderer.gl;
-    gl.clearColor(1, 1, 1, 1);
+    gl.clearColor(0, 0, 0, 1); 
 
     const vertexShader = `
       attribute vec2 position;
@@ -34,11 +32,9 @@ export const LiquidChrome = ({
       precision highp float;
       uniform float uTime;
       uniform vec3 uResolution;
-      uniform vec3 uBaseColor;
       uniform float uAmplitude;
       uniform float uFrequencyX;
       uniform float uFrequencyY;
-      uniform vec2 uMouse;
       varying vec2 vUv;
 
       vec4 renderImage(vec2 uvCoord) {
@@ -46,17 +42,14 @@ export const LiquidChrome = ({
           vec2 uv = (2.0 * fragCoord - uResolution.xy) / min(uResolution.x, uResolution.y);
 
           for (float i = 1.0; i < 10.0; i++){
-              uv.x += uAmplitude / i * cos(i * uFrequencyX * uv.y + uTime + uMouse.x * 3.14159);
-              uv.y += uAmplitude / i * cos(i * uFrequencyY * uv.x + uTime + uMouse.y * 3.14159);
+              uv.x += uAmplitude / i * cos(i * uFrequencyX * uv.y + uTime);
+              uv.y += uAmplitude / i * cos(i * uFrequencyY * uv.x + uTime);
           }
 
-          vec2 diff = (uvCoord - uMouse);
-          float dist = length(diff);
-          float falloff = exp(-dist * 20.0);
-          float ripple = sin(10.0 * dist - uTime * 2.0) * 0.03;
-          uv += (diff / (dist + 0.0001)) * ripple * falloff;
+          //  Softer faded white (range ~0.2 → 0.6)
+          float intensity = 0.2 + 0.4 * (0.5 + 0.5 * sin(uTime - uv.y - uv.x));
+          vec3 color = vec3(intensity);
 
-          vec3 color = uBaseColor / abs(sin(uTime - uv.y - uv.x));
           return vec4(color, 1.0);
       }
 
@@ -87,11 +80,9 @@ export const LiquidChrome = ({
             gl.canvas.width / gl.canvas.height,
           ]),
         },
-        uBaseColor: { value: new Float32Array(baseColor) },
         uAmplitude: { value: amplitude },
         uFrequencyX: { value: frequencyX },
         uFrequencyY: { value: frequencyY },
-        uMouse: { value: new Float32Array([0, 0]) },
       },
     });
     const mesh = new Mesh(gl, { geometry, program });
@@ -106,33 +97,6 @@ export const LiquidChrome = ({
     window.addEventListener("resize", resize);
     resize();
 
-    function handleMouseMove(event) {
-      const rect = container.getBoundingClientRect();
-      const x = (event.clientX - rect.left) / rect.width;
-      const y = 1 - (event.clientY - rect.top) / rect.height;
-      const mouseUniform = program.uniforms.uMouse.value;
-      mouseUniform[0] = x;
-      mouseUniform[1] = y;
-    }
-
-    function handleTouchMove(event) {
-      if (event.touches.length > 0) {
-        const touch = event.touches[0];
-        const rect = container.getBoundingClientRect();
-        const x = (touch.clientX - rect.left) / rect.width;
-        const y = 1 - (touch.clientY - rect.top) / rect.height;
-        const mouseUniform = program.uniforms.uMouse.value;
-        mouseUniform[0] = x;
-        mouseUniform[1] = y;
-      }
-    }
-
-    // ✅ Attach to window instead of container
-    if (interactive) {
-      window.addEventListener("mousemove", handleMouseMove);
-      window.addEventListener("touchmove", handleTouchMove);
-    }
-
     let animationId;
     function update(t) {
       animationId = requestAnimationFrame(update);
@@ -143,7 +107,6 @@ export const LiquidChrome = ({
 
     container.appendChild(gl.canvas);
 
-    // ✅ Let events pass through canvas
     gl.canvas.style.width = "100%";
     gl.canvas.style.height = "100%";
     gl.canvas.style.display = "block";
@@ -152,16 +115,12 @@ export const LiquidChrome = ({
     return () => {
       cancelAnimationFrame(animationId);
       window.removeEventListener("resize", resize);
-      if (interactive) {
-        window.removeEventListener("mousemove", handleMouseMove);
-        window.removeEventListener("touchmove", handleTouchMove);
-      }
       if (gl.canvas.parentElement) {
         gl.canvas.parentElement.removeChild(gl.canvas);
       }
       gl.getExtension("WEBGL_lose_context")?.loseContext();
     };
-  }, [baseColor, speed, amplitude, frequencyX, frequencyY, interactive]);
+  }, [speed, amplitude, frequencyX, frequencyY]);
 
   return <div ref={containerRef} className="w-full h-full" {...props} />;
 };
