@@ -11,8 +11,10 @@ import OurGoals from "../components/OurGoals";
 
 const Home = () => {
   return (
-    <div>
-      <Header id="Home"/>
+    <div id="Home">
+     <div><Header/>
+     </div>
+      
       <HeroSection />
       <AboutSection />
       <OurGoals />
@@ -30,3 +32,4 @@ const Home = () => {
   );
 };
 export default Home;
+
