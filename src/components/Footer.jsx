@@ -1,5 +1,6 @@
 import React from "react";
-import { SlSocialFacebook,SiInstagram } from "react-icons/sl";
+import { SlSocialFacebook} from "react-icons/sl";
+import { SiInstagram } from "react-icons/si";
 import { BsTwitterX } from "react-icons/bs";
 
 const Footer = () => {
@@ -104,3 +105,4 @@ const Footer = () => {
 };
 
 export default Footer;
+
