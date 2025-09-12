@@ -6,28 +6,27 @@ import OurBrands from "../components/OurBrands";
 import OurMission from "../components/OurMission"; 
 import OurGoals from "../components/OurGoals";
  import OurVision from "../components/OurVision";
-import OurServices from "../components/OurServices";
-import Footer from "../components/Footer";
-
+ import OurServices from "../components/OurServices";
+ import Footer from "../components/Footer"
 
 const Home = () => {
   return (
     <div>
-      <Header />
+      <Header id="Home"/>
       <HeroSection />
       <AboutSection />
       <OurGoals />
       <OurMission />
       <OurVision />
-      <OurBrands />
-     <OurServices/>
-     <Footer/>
+     <div id="our-brands">
+  <OurBrands />
+</div>
+<div id="our-services">
+ <OurServices/>
+</div>
+      
+      <Footer/>
     </div>
   );
 };
 export default Home;
-
-
-
-
-
