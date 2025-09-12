@@ -3,7 +3,7 @@ import logo from "../assets/logo.png";
 
 const HeroSection = () => {
   return (
-    <section className="bg-black text-white flex items-center justify-center h-screen px-6 md:px-12">
+    <section className="bg-black text-white flex items-center justify-center h-screen px-6 md:px-12 pt-20">
       <div className="w-full max-w-6xl flex flex-col md:flex-row items-center md:items-center justify-between gap-8">
         
         {/* Logo */}
@@ -41,9 +41,11 @@ const HeroSection = () => {
 
           {/* Button (left-aligned under heading) */}
           <div className="self-center">
-            <button className="bg-white text-black px-6 py-3 rounded-full font-semibold hover:bg-gray-200 transition-transform transform hover:scale-105">
-              Get Started
-            </button>
+            <a href="#our-services">
+  <button className="bg-white text-black px-6 py-3 rounded-full font-semibold hover:bg-gray-200 transition-transform transform hover:scale-105">
+    Get Started
+  </button>
+</a>
           </div>
         </div>
       </div>
@@ -52,5 +54,3 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
-
-
